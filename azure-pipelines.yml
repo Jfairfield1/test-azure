@@ -6,7 +6,8 @@ pool:
 
 jobs:
 - deployment: DeployToMAG9050
-  environment: 'MAG9050'  # Specify your deployment group name
+  displayName: Deploy to Deployment Group MAG9050
+  environment: 'MAG9050'  # Specify the environment name if needed
   strategy:
     runOnce:
       deploy:
@@ -21,15 +22,8 @@ jobs:
             npm run build
           displayName: 'npm install and build'
 
-        - task: IISWebAppManagementOnMachineGroup@0
-          inputs:
-            IISDeploymentType: 'IISWebsite'
-            ActionIISWebsite: 'CreateOrUpdateWebsite'
-            WebsiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
-            WebsitePhysicalPath: 'D:\wwwroot\maps\test\demo'
-            WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
-
         - task: IISWebAppDeploymentOnMachineGroup@0
           inputs:
             WebSiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
             Package: '$(System.DefaultWorkingDirectory)\path\to\your\artifact.zip'  # Replace with the actual path to your built artifact
+            DeploymentGroupName: 'MAG9050'  # Specify your deployment group name
