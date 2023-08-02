@@ -22,7 +22,7 @@ steps:
   displayName: 'npm install and build'
 
 - task: IISWebAppManagementOnMachineGroup@0
-  environment: 'MAG9050'
+  environment: MAG9050
   inputs:
     IISDeploymentType: 'IISWebsite'
     ActionIISWebsite: 'CreateOrUpdateWebsite'
