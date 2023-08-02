@@ -28,5 +28,6 @@ steps:
     WebsiteName: 'Default Web Site'
     WebsitePhysicalPath: 'D:\wwwroot\maps\test\demo'
     WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
-  environment: 'MAG9050'
+  env: 'MAG9050'
+    
 
