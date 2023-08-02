@@ -4,28 +4,32 @@ trigger:
 pool:
   vmImage: windows-latest
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-
-- task: IISWebAppManagementOnMachineGroup@0
-  inputs:
-    IISDeploymentType: 'IISWebsite'
-    ActionIISWebsite: 'CreateOrUpdateWebsite'
-    WebsiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
-    WebsitePhysicalPath: 'D:\wwwroot\maps\test\demo'
-    WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
+jobs:
+- deployment: DeployToMAG9050
   environment: 'MAG9050'  # Specify your deployment group name
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '14.x'
+          displayName: 'Install Node.js'
 
-- task: IISWebAppDeploymentOnMachineGroup@0
-  inputs:
-    WebSiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
-    Package: '$(System.DefaultWorkingDirectory)\path\to\your\artifact.zip'  # Replace with the actual path to your built artifact
-  environment: 'MAG9050'  # Specify your deployment group name
+        - script: |
+            npm install
+            npm run build
+          displayName: 'npm install and build'
+
+        - task: IISWebAppManagementOnMachineGroup@0
+          inputs:
+            IISDeploymentType: 'IISWebsite'
+            ActionIISWebsite: 'CreateOrUpdateWebsite'
+            WebsiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
+            WebsitePhysicalPath: 'D:\wwwroot\maps\test\demo'
+            WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
+
+        - task: IISWebAppDeploymentOnMachineGroup@0
+          inputs:
+            WebSiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
+            Package: '$(System.DefaultWorkingDirectory)\path\to\your\artifact.zip'  # Replace with the actual path to your built artifact
