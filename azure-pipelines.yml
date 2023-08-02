@@ -19,3 +19,11 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
+
+- task: IISWebAppManagementOnMachineGroup@0
+  inputs:
+    IISDeploymentType: 'IISWebsite'
+    ActionIISWebsite: 'CreateOrUpdateWebsite'
+    WebsiteName: 'Default Web Site'
+    WebsitePhysicalPath: 'D:\wwwroot\maps\test\demo'
+    WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
