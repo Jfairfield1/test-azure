@@ -29,11 +29,5 @@ jobs:
 
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'  # Relative path to the build output directory
+            PathtoPublish: '$(System.DefaultWorkingDirectory)'  # Relative path to the build output directory
             ArtifactName: 'MyAppArtifact'
-
-        - task: IISWebAppDeploymentOnMachineGroup@0
-          inputs:
-            WebSiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
-            Package: '$(System.DefaultWorkingDirectory)/build/MyAppArtifact.zip'  # Replace with the actual path to your built artifact
-            DeploymentGroupName: 'MAG9050'  # Specify your deployment group name
