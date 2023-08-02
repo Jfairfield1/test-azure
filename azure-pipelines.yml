@@ -23,9 +23,13 @@ jobs:
           displayName: 'npm install and build'
           workingDirectory: $(System.DefaultWorkingDirectory)  # Make sure you're in the right directory
 
+        - script: |
+            dir $(System.DefaultWorkingDirectory)
+          displayName: List Working Directory After Build
+
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: 'build'  # Relative path to the build output directory
+            PathtoPublish: '$(System.DefaultWorkingDirectory)/build'  # Relative path to the build output directory
             ArtifactName: 'MyAppArtifact'
 
         - task: IISWebAppDeploymentOnMachineGroup@0
