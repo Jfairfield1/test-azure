@@ -29,7 +29,7 @@ jobs:
 
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: '$(System.DefaultWorkingDirectory)/build'  # Relative path to the build output directory
+            PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'  # Relative path to the build output directory
             ArtifactName: 'MyAppArtifact'
 
         - task: IISWebAppDeploymentOnMachineGroup@0
