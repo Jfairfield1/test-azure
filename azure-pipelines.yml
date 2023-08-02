@@ -31,3 +31,8 @@ jobs:
           inputs:
             PathtoPublish: '$(System.DefaultWorkingDirectory)'  # Relative path to the build output directory
             ArtifactName: 'MyAppArtifact'
+        - task: IISWebAppDeploymentOnMachineGroup@0
+          inputs:
+            WebSiteName: 'Default Web Site'  # Replace with your actual IIS website name
+            Package: '$(System.DefaultWorkingDirectory)/package-lock.json'  # Replace with the actual path to your built artifact
+            DeploymentGroupName: 'MAG9050'  # Specify your deployment group name
