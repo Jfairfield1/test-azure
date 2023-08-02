@@ -7,7 +7,7 @@ pool:
 jobs:
 - deployment: DeployToMAG9050
   displayName: Deploy to Deployment Group MAG9050
-  environment: 'MAG9050'  # Specify the environment name if needed
+  environment: 'MAG9050'
   strategy:
     runOnce:
       deploy:
@@ -21,14 +21,15 @@ jobs:
             npm install
             npm run build
           displayName: 'npm install and build'
+          workingDirectory: $(System.DefaultWorkingDirectory)  # Make sure you're in the right directory
 
         - task: PublishBuildArtifacts@1
           inputs:
-            PathtoPublish: '$(System.DefaultWorkingDirectory)/build'  # Path to your build output
+            PathtoPublish: 'build'  # Relative path to the build output directory
             ArtifactName: 'MyAppArtifact'
 
         - task: IISWebAppDeploymentOnMachineGroup@0
           inputs:
-            WebSiteName: 'Default Web Site'  # Replace with your actual IIS website name
+            WebSiteName: 'YourWebsiteName'  # Replace with your actual IIS website name
             Package: '$(System.DefaultWorkingDirectory)/build/MyAppArtifact.zip'  # Replace with the actual path to your built artifact
             DeploymentGroupName: 'MAG9050'  # Specify your deployment group name
